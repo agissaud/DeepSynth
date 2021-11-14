@@ -1,44 +1,35 @@
 from type_system import *
 from program import *
-import math
+from shape import *
 
-# OPTION 1
-FLOAT = PrimitiveType('float')
-POINT = PrimitiveType('point')
-
-# OPTION 2
 SHAPE = PrimitiveType('shape')
 
-''' Renvoie une liste de positions (pour dessiner les sommets des polygones) selon le nombre de sommets n'''
-def _listPosition(n):
-
-def drawPoly(n, l):
-    # DRAW ICI
-
-def _polygone(n):
-    return lambda l : drawPoly(n, l)
-    #dessiner polygone a n cotés au centre
+def _polygon(n):
+    return lambda l : Polygon(n, l)
 
 def _point(x, y):
+    return 0
 
 def _semicircle(r):
+    return 0
 
 def _circle(r):
+    return 0
 
 def _spiral(dtheta):
+    return 0
 
 def _greekSpiral(n):
+    return 0
 
 def _scurve(r):
-
-def _reproduceShape(n, shape):
-    for pos in _listPosition(n):
-        draw(pos, shape) # PSEUDO CODE
+    return 0
 
 def _radialSymmetry(n):
-    return lambda shape: _reproduceShape(n, shape)
+    return 0
 
 def _move(x, y, shape):
+    return 0
 
 def _merge(shape):
     return lambda s1 : lambda s2 : merge(s1, s2)
@@ -48,30 +39,54 @@ def _rotate(degree):
 
 def _rotateShape(degree, shape):
     # rotate shape
+    return 0
+
 
 semantics = {
     "circle": _circle,
     "semicircle": _semicircle,
     "spiral": _spiral,
     "greekspiral": _greekSpiral,
-    "scurve": _scure,
-    "polygone": _polygone,
+    "scurve": _scurve,
+    "polygon": _polygon,
     "point": _point,
     "rsymmetry": _radialSymmetry,
     "move": _move,
     "merge": _merge,
-    "rotate" : _rotate
+    "rotate" : _rotate,
+    "0" : 0,
+    "1" : 1,
+    "2" : 2,
+    "3" : 3,
+    "4" : 4,
+    "5" : 5,
+    "6" : 6,
+    "7" : 7,
+    "8" : 8,
+    "9" : 9,
+    "10" : 10
 }
 
 primitive_types = {
-    "circle": Arrow(FLOAT, SHAPE),
-    "semicircle": Arrow(FLOAT, SHAPE),
-    "spiral": Arrow(FLOAT, SHAPE),
+    "circle": Arrow(INT, SHAPE),
+    "semicircle": Arrow(INT, SHAPE),
+    "spiral": Arrow(INT, SHAPE),
     "greekspiral": Arrow(INT, SHAPE),
-    "scurve": Arrow(FLOAT, SHAPE),
-    "polygone": Arrow(INT, Arrow(FLOAT, SHAPE)),
-    "point": Arrow(FLOAT, Arrow(FLOAT, POINT)),
+    "scurve": Arrow(INT, SHAPE),
+    "polygon": Arrow(INT, Arrow(INT, SHAPE)),
+    "point": Arrow(INT, Arrow(INT, POINT)),
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
-    "move": Arrow(FLOAT, Arrow(FLOAT, SHAPE)),
-    "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE))
+    "move": Arrow(INT, Arrow(INT, SHAPE)),
+    "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),
+    "0" : INT,
+    "1" : INT,
+    "2" : INT,
+    "3" : INT,
+    "4" : INT,
+    "5" : INT,
+    "6" : INT,
+    "7" : INT,
+    "8" : INT,
+    "9" : INT,
+    "10" : INT
 }
