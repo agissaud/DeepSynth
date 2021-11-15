@@ -4,9 +4,12 @@ IMG_WIDTH = IMG_HEIGHT = 1080
 SHAPE_SCALING = 40
 DEFAULT_POSITION = (IMG_WIDTH/2, IMG_HEIGHT/2)
 
+liste
+
 class Shape:
     scale = 1
     fill_color = "black"
+    im
 
     def __init__(self, dimension):
         self.scale = dimension
