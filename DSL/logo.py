@@ -7,6 +7,9 @@ SHAPE = PrimitiveType('shape')
 def _polygon(n):
     return lambda l : Polygon(n, l)
 
+def _rectangle(width):
+    return lambda height : Rectangle(width, height)
+
 def _point(x, y):
     return 0
 
@@ -14,7 +17,7 @@ def _semicircle(r):
     return 0
 
 def _circle(r):
-    return 0
+    return Circle(r)
 
 def _spiral(dtheta):
     return 0
@@ -28,19 +31,14 @@ def _scurve(r):
 def _radialSymmetry(n):
     return 0
 
-def _move(x, y, shape):
-    return 0
+def _move(shape):
+    return lambda shape: lambda x : lambda y : shape.move(x,y)
 
 def _merge(shape):
     return lambda s1 : lambda s2 : merge(s1, s2)
 
-def _rotate(degree):
-    return lambda s: _rotateShape(degree, s)
-
-def _rotateShape(degree, shape):
-    # rotate shape
-    return 0
-
+def _rotate(shape):
+    return lambda degree : shape.rotate(degree)
 
 semantics = {
     "circle": _circle,
@@ -49,6 +47,7 @@ semantics = {
     "greekspiral": _greekSpiral,
     "scurve": _scurve,
     "polygon": _polygon,
+    "rectangle": _rectangle,
     "point": _point,
     "rsymmetry": _radialSymmetry,
     "move": _move,
@@ -74,10 +73,12 @@ primitive_types = {
     "greekspiral": Arrow(INT, SHAPE),
     "scurve": Arrow(INT, SHAPE),
     "polygon": Arrow(INT, Arrow(INT, SHAPE)),
+    "rectangle" : Arrow(INT, Arrow(INT, SHAPE)),
     "point": Arrow(INT, Arrow(INT, POINT)),
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
-    "move": Arrow(INT, Arrow(INT, SHAPE)),
+    "move": Arrow(SHAPE, Arrow(INT, Arrow(INT, SHAPE))),
     "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),
+    "rotate": Arrow(SHAPE, Arrow(INT, SHAPE))
     "0" : INT,
     "1" : INT,
     "2" : INT,
