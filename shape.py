@@ -10,6 +10,8 @@ DEFAULT_OUTLINE_COLOR = "black"
 
 listeShape = []
 
+liste
+
 class Shape:
     fill_color = "black"
     position = DEFAULT_POSITION
