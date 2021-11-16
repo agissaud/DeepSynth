@@ -41,7 +41,6 @@ def _rotateShape(degree, shape):
     # rotate shape
     return 0
 
-
 semantics = {
     "circle": _circle,
     "semicircle": _semicircle,
