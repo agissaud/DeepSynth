@@ -40,6 +40,7 @@ def _merge(shape):
 def _rotate(shape):
     return lambda degree : shape.rotate(degree)
 
+
 semantics = {
     "circle": _circle,
     "semicircle": _semicircle,
@@ -78,7 +79,7 @@ primitive_types = {
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
     "move": Arrow(SHAPE, Arrow(INT, Arrow(INT, SHAPE))),
     "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),
-    "rotate": Arrow(SHAPE, Arrow(INT, SHAPE))
+    "rotate": Arrow(SHAPE, Arrow(INT, SHAPE)),
     "0" : INT,
     "1" : INT,
     "2" : INT,
