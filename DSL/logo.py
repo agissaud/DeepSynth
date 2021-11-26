@@ -3,6 +3,7 @@ from program import *
 from shape import *
 
 SHAPE = PrimitiveType('shape')
+FIXED = PrimitiveType('fixed')
 
 def _polygon(n):
     return lambda l : Polygon(n, l)
@@ -35,7 +36,10 @@ def _move(shape):
     return lambda shape: lambda x : lambda y : shape.move(x,y)
 
 def _merge(shape):
-    return lambda s1 : lambda s2 : merge(s1, s2)
+    return lambda s1 : lambda s2 : Merge(s1, s2)
+
+def _concat(f1):
+    lambda f1 : lambda f2 : None
 
 def _rotate(shape):
     return lambda degree : shape.rotate(degree)
@@ -53,6 +57,8 @@ semantics = {
     "rsymmetry": _radialSymmetry,
     "move": _move,
     "merge": _merge,
+    "fix": lambda shape: shape,
+    "concat": _concat
     "rotate" : _rotate,
     "0" : 0,
     "1" : 1,
@@ -79,6 +85,8 @@ primitive_types = {
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
     "move": Arrow(SHAPE, Arrow(INT, Arrow(INT, SHAPE))),
     "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),
+    "fix": Arrow(SHAPE, FIXED)
+    "concat": Arrow(FIXED, Arrow(FIXED, FIXED))
     "rotate": Arrow(SHAPE, Arrow(INT, SHAPE)),
     "0" : INT,
     "1" : INT,
