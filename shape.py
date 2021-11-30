@@ -12,10 +12,6 @@ DEFAULT_OUTLINE_COLOR = "black"
 #Intern representation
 listeShape = []
 
-#Loss function
-PENALITY_OUT_OF_BOUND = 5
-PENALITY_SUPERPOSITION = 5
-
 class Shape:
     fill_color = "black"
     position = DEFAULT_POSITION
@@ -62,7 +58,8 @@ class Rectangle(Shape):
 
     def __init__(self, width, height):
         Shape.__init__(self)
-        self.position2 = (self.position[0] + width*SHAPE_SCALING, self.position[1] + height*SHAPE_SCALING)
+        self.position2 = (self.position[0] + width*SHAPE_SCALING/2, self.position[1] + height*SHAPE_SCALING/2)
+        self.position = (self.position[0] - width*SHAPE_SCALING/2, self.position[1] - height*SHAPE_SCALING/2)
 
     def draw(self, img):
         return ImageDraw.Draw(img).rectangle((self.position, self.position2), outline=DEFAULT_OUTLINE_COLOR, fill=self.fill_color, width=3)
