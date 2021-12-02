@@ -19,14 +19,19 @@ def print_clown():
     merged.move(-1,-1)
     draw_all_shape_show()
 
-Circle(6)
-Rectangle(8,8)
-Circle(4)
-Polygon(5, 4)
-draw_all_shape_show()
-
-clear_list_shape()
-
-print_clown()
+def test_Rectangle_superposed():
+    print("Test Rectangle masked")
+    clear_list_shape()
+    rec3 = Rectangle(9, 3)
+    rec1 = Rectangle(8, 8)
+    rec2 = Rectangle(5, 5)
+    test = Polygon(10, 8)
+    print("This should print True : " + str(rec1.is_superposed_on(rec2)))
+    print("This should print False : " + str(rec2.is_superposed_on(rec1)))
+    print("This should print False : " + str(rec3.is_superposed_on(rec1)))
+    print("This should print False : " + str(rec3.is_superposed_on(rec2)))
+    draw_all_shape_show()
 
 loss_function_logo(listeShape)
+
+test_Rectangle_superposed()

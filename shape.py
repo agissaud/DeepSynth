@@ -32,6 +32,18 @@ class Shape:
         self.rotation += degree*ROTATION_SCALING
         return self
 
+    def get_representative_points(self):
+        return [self.position]
+
+    def point_in_shape(self, point):
+        return point == self.position
+
+    def is_superposed_on(self, shape):
+        for point in shape.get_representative_points():
+            if not self.point_in_shape(point):
+                return False
+        return True
+
 class Polygon(Shape):
     nb_sides = 3
     scale = 1
@@ -73,7 +85,18 @@ class Rectangle(Shape):
         if type(other).__name__ == type(self).__name__:
             return self.position == other.position and self.position2 == other.position2
         return False
-        
+
+    def get_representative_points(self):
+        list = Shape.get_representative_points(self)
+        list.append(self.position)
+        list.append(self.position2)
+        list.append((self.position2[0], self.position[1]))
+        list.append((self.position[0], self.position2[1]))
+        return list
+
+    def point_in_shape(self, point):
+        return self.position[0] <= point[0] <= self.position2[0] and self.position[1] <= point[1] <= self.position2[1]
+
 '''
     def rotate(self, degree):
         # CA BUUUUUUGGG => PAS POSSIBLE A FAIRE => RAISE ERROR
@@ -101,12 +124,6 @@ class Circle(Shape):
             return self.position == other.position and self.radius == other.radius
         return False
 
-def draw_all_shape_show():
-    img = Image.new("RGB", size=(IMG_WIDTH, IMG_HEIGHT), color="white")
-    for s in listeShape:
-        s.draw(img)
-    img.show()
-
 class Merge(Shape):
     shapes = []
 
@@ -130,7 +147,25 @@ class Merge(Shape):
             s.rotate(degree)
         return self
 
-def draw_all_shape():
+    def get_representative_points(self):
+        l = []
+        for s in shapes:
+            l.extend(s.get_representative_points())
+        return l
+
+    def point_in_shape(self, point):
+        for s in shapes:
+            if s.point_in_shape(point):
+                return True
+        return False
+
+def draw_all_shape_show():
+    img = Image.new("RGB", size=(IMG_WIDTH, IMG_HEIGHT), color="white")
+    for s in listeShape:
+        s.draw(img)
+    img.show()
+
+def draw_all_shape_to_img():
     img = Image.new("RGB", size=(IMG_WIDTH, IMG_HEIGHT), color="white")
     for s in listeShape:
         s.draw(img)
