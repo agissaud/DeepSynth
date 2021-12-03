@@ -116,6 +116,7 @@ def build_dreamcoder_intlist_model(max_program_depth: int = 4, autoload: bool = 
 
 
     dreamcoder = dsl.DSL(list.semantics, list.primitive_types)
+    dreamcoder.DSL_to_CFG(). #.toPCFG
 
     dreamcoder_cfg, model = __buildintlist_model(
         dreamcoder, max_program_depth, nb_arguments_max, lexicon, size_max, size_hidden, embedding_output_dimension, number_layers_RNN)

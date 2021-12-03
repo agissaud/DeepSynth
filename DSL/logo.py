@@ -58,7 +58,7 @@ semantics = {
     "move": _move,
     "merge": _merge,
     "fix": lambda shape: shape,
-    "concat": _concat
+    "concat": _concat,
     "rotate" : _rotate,
     "0" : 0,
     "1" : 1,
@@ -85,8 +85,8 @@ primitive_types = {
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
     "move": Arrow(SHAPE, Arrow(INT, Arrow(INT, SHAPE))),
     "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),
-    "fix": Arrow(SHAPE, FIXED)
-    "concat": Arrow(FIXED, Arrow(FIXED, FIXED))
+    "fix": Arrow(SHAPE, FIXED),
+    "concat": Arrow(FIXED, Arrow(FIXED, FIXED)),
     "rotate": Arrow(SHAPE, Arrow(INT, SHAPE)),
     "0" : INT,
     "1" : INT,
