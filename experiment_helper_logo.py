@@ -19,19 +19,19 @@ def make_program_checker_logo(dsl: DSL, examples) -> Callable[[Program, bool], b
             for i, example in enumerate(examples):
                 input, output = example
                 prog.eval(dsl, input, i)
-                out = draw_all_shape() # Récupérer l'image
+                out = sh.draw_all_shape() # Récupérer l'image
                 if output != out:
                     return False
-                clear_list_shape()
+                sh.clear_list_shape()
             return True
         else:
             for example in examples:
                 input, output = example
-                prog.eval(dsl, input, i)
-                out = draw_all_shape()
+                prog.eval(dsl, input, i) #à verif 
+                out = sh.draw_all_shape()
                 if output != out:
                     return False
-                clear_list_shape()
+                sh.clear_list_shape() #avant condition if
             return True
     return checker
 

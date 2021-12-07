@@ -171,12 +171,12 @@ class Merge(Shape):
 
     def get_representative_points(self):
         l = []
-        for s in shapes:
+        for s in self.shapes:
             l.extend(s.get_representative_points())
         return l
 
     def point_in_shape(self, point):
-        for s in shapes:
+        for s in self.shapes:
             if s.point_in_shape(point):
                 return True
         return False
