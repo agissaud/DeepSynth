@@ -1,7 +1,6 @@
 from experiment_helper_logo import *
 from shape import *
-
-print("hello from the other shape")
+import numpy as np
 
 def print_clown():
     eye1 = Polygon(5,3)
@@ -32,6 +31,31 @@ def test_Rectangle_superposed():
     print("This should print False : " + str(rec3.is_superposed_on(rec2)))
     draw_all_shape_show()
 
-loss_function_logo(listeShape)
+def test_superposed_img_detection():
+    print("Shape detection test")
+    clear_list_shape()
+    rec1 = Rectangle(8, 8)
+    rec2 = Rectangle(5, 5)
+    test = Polygon(10, 4)
+    test.move(3, -2)
+    ls = get_list_shape()
+    print("This should be 0: " + str(evaluate_superposition_img(ls)))
+    draw_all_shape_show()
 
-test_Rectangle_superposed()
+def test_color_next():
+    global start_color
+    start_color = [1, 0, 0]
+    print("Start color test")
+    print(start_color)
+    next_color()
+    print(start_color)
+    for i in range(254):
+        next_color()
+    print(start_color)
+    c = (start_color)
+    print(tuple(c))
+    start_color = [1, 0, 0]
+    
+print("hello from the other shape")
+
+test_superposed_img_detection()

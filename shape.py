@@ -11,16 +11,35 @@ DEFAULT_OUTLINE_COLOR = "black"
 
 #Intern representation
 listeShape = []
+start_color = [1, 0, 0]
+
+def get_list_shape():
+    global listeShape
+    return listeShape
+
+def next_color():
+    global start_color
+    for i in range(3):
+        if start_color[i] < 255:
+            start_color[i] += 1
+            return True
+    return False
+
+def get_fill_color():
+    return tuple(start_color)
 
 class Shape:
-    fill_color = "black"
+    fill_color = "orange"
+    fill_color_colision = None
     position = DEFAULT_POSITION
     rotation = 0
 
     def __init__(self):
         listeShape.append(self)
+        self.fill_color_colision = get_fill_color()
+        next_color()
 
-    def draw(self, im):
+    def draw(self, im, collision=False):
         return im
 
     def move(self, a, b):
@@ -55,8 +74,9 @@ class Polygon(Shape):
         self.nb_sides = nb_sides if nb_sides >= 3 else 3
         # RAISE ERRORS
 
-    def draw(self, img):
-        return ImageDraw.Draw(img).regular_polygon((self.position, SHAPE_SCALING*self.scale), self.nb_sides, rotation=self.rotation, outline=DEFAULT_OUTLINE_COLOR, fill=self.fill_color)
+    def draw(self, img, collision=False):
+        c = self.fill_color_colision if collision else self.fill_color
+        return ImageDraw.Draw(img).regular_polygon((self.position, SHAPE_SCALING*self.scale), self.nb_sides, rotation=self.rotation, outline=DEFAULT_OUTLINE_COLOR, fill=c)
 
     def __eq__(self, other):
         if type(other).__name__ == type(self).__name__:
@@ -73,8 +93,9 @@ class Rectangle(Shape):
         self.position2 = (self.position[0] + width*SHAPE_SCALING/2, self.position[1] + height*SHAPE_SCALING/2)
         self.position = (self.position[0] - width*SHAPE_SCALING/2, self.position[1] - height*SHAPE_SCALING/2)
 
-    def draw(self, img):
-        return ImageDraw.Draw(img).rectangle((self.position, self.position2), outline=DEFAULT_OUTLINE_COLOR, fill=self.fill_color, width=3)
+    def draw(self, img, collision=False):
+        c = self.fill_color_colision if collision else self.fill_color
+        return ImageDraw.Draw(img).rectangle((self.position, self.position2), outline=DEFAULT_OUTLINE_COLOR, fill=c, width=3)
 
     def move(self, a, b):
         self.position = (self.position[0] + a * POSITION_SCALING, self.position[1] + b * POSITION_SCALING)
@@ -116,8 +137,9 @@ class Circle(Shape):
         Shape.__init__(self)
         self.radius = radius*SHAPE_SCALING
 
-    def draw(self, img):
-        return ImageDraw.Draw(img).ellipse(((self.position[0] - self.radius, self.position[1] - self.radius,), (self.position[0] + self.radius, self.position[1]+ self.radius,)), outline=DEFAULT_OUTLINE_COLOR, fill=self.fill_color, width=3)
+    def draw(self, img, collision=False):
+        c = self.fill_color_colision if collision else self.fill_color
+        return ImageDraw.Draw(img).ellipse(((self.position[0] - self.radius, self.position[1] - self.radius,), (self.position[0] + self.radius, self.position[1]+ self.radius,)), outline=DEFAULT_OUTLINE_COLOR, fill=c, width=3)
 
     def __eq__(self, other):
         if type(other).__name__ == type(self).__name__:
@@ -131,9 +153,9 @@ class Merge(Shape):
         self.shapes.append(s1)
         self.shapes.append(s2)
 
-    def draw(self, im):
+    def draw(self, im, collision=False):
         for s in self.shapes:
-            s.draw(im)
+            s.draw(im, collision)
         return im
 
     def move(self, a, b):
@@ -165,10 +187,10 @@ def draw_all_shape_show():
         s.draw(img)
     img.show()
 
-def draw_all_shape_to_img():
+def draw_all_shape_to_img(lShape=listeShape, collision=False):
     img = Image.new("RGB", size=(IMG_WIDTH, IMG_HEIGHT), color="white")
-    for s in listeShape:
-        s.draw(img)
+    for s in lShape:
+        s.draw(img, collision=collision)
     return img
 
 def clear_list_shape():
