@@ -81,7 +81,6 @@ primitive_types = {
     "scurve": Arrow(INT, SHAPE),
     "polygon": Arrow(INT, Arrow(INT, SHAPE)),
     "rectangle" : Arrow(INT, Arrow(INT, SHAPE)),
-    "point": Arrow(INT, Arrow(INT, POINT)),
     "rsymmetry": Arrow(INT, Arrow(SHAPE, SHAPE)),
     "move": Arrow(SHAPE, Arrow(INT, Arrow(INT, SHAPE))),
     "merge": Arrow(SHAPE, Arrow(SHAPE, SHAPE)),

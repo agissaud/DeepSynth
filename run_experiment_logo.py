@@ -56,6 +56,40 @@ def test_color_next():
     print(tuple(c))
     start_color = [1, 0, 0]
     
-print("hello from the other shape")
+# print("hello from the other shape")
+# test_superposed_img_detection()
 
-test_superposed_img_detection()
+##############################################################
+
+import dsl
+from DSL import logo
+from type_system import Arrow
+
+############################
+##### Hyperparameters ######
+############################
+
+max_program_depth = 4
+
+size_max = 10  # maximum number of elements in a list (input or output)
+nb_inputs_max = 1  # maximum number of inputs in an IO
+lexicon = list(range(30))  # all elements of a list must be from lexicon
+# only useful for VariableSizeEncoding
+encoding_output_dimension = 30  # fixing the dimension
+
+embedding_output_dimension = 10
+# only useful for RNNEmbedding
+number_layers_RNN = 1
+
+size_hidden = 64
+
+logoDSL = dsl.DSL(logo.semantics, logo.primitive_types)
+type_request = logo.FIXED
+logo_cfg = logoDSL.DSL_to_CFG(type_request, max_program_depth=max_program_depth)
+logo_pcfg = logo_cfg.CFG_to_Uniform_PCFG()
+
+clear_list_shape()
+generator = logo.sampling()
+draw_all_shape_show()
+
+
