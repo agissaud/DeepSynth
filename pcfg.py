@@ -78,7 +78,7 @@ class PCFG:
                 s += "   {} - {}: {}     {}\n".format(P, P.type, args_P, w)
         return s
 
-    def init_vose(self):
+    def init_vose(self, seed):
         self.vose_samplers = {}
         self.list_derivations = {}
 
@@ -87,7 +87,7 @@ class PCFG:
                 self.rules[S], key=lambda P: self.rules[S][P][1]
             )
             self.vose_samplers[S] = vose.Sampler(
-                np.array([self.rules[S][P][1] for P in self.list_derivations[S]],dtype=float)
+                np.array([self.rules[S][P][1] for P in self.list_derivations[S]],dtype=float), seed=seed
             )
 
     def sort(self):
@@ -213,11 +213,11 @@ class PCFG:
             # assert best_probability > 0
             self.max_probability[S] = best_program
 
-    def sampling(self):
+    def sampling(self, seed=0):
         """
         A generator that samples programs according to the PCFG G
         """
-        self.init_vose()
+        self.init_vose(seed)
 
         while True:
             yield self.sample_program(self.start)

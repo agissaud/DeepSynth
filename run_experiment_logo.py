@@ -63,26 +63,19 @@ def test_color_next():
 
 import dsl
 from DSL import logo
-from type_system import Arrow
 
-############################
-##### Hyperparameters ######
-############################
-
-max_program_depth = 18
+max_program_depth = 12
 
 logoDSL = dsl.DSL(logo.semantics, logo.primitive_types)
 type_request = logo.FIXED
 logo_cfg = logoDSL.DSL_to_CFG(type_request, max_program_depth=max_program_depth)
 logo_pcfg = logo_cfg.CFG_to_Uniform_PCFG()
 
-generator = logo_pcfg.sampling()
+generator = logo_pcfg.sampling(seed=5)
 
-for i in range(5):
+for i in range(10):
     clear_list_shape()
     a = generator.__next__()
     print(a)
-    a.eval(logoDSL, None, 0)
+    a.eval_naive(logoDSL, None)
     draw_all_shape_show()
-
-

@@ -43,7 +43,6 @@ class Shape:
         return im
 
     def move(self, a, b):
-        # ATTENTION COORDS
         self.position = (self.position[0] + a*POSITION_SCALING, self.position[1] + b*POSITION_SCALING)
         return self
 
@@ -62,6 +61,7 @@ class Shape:
             if not self.point_in_shape(point):
                 return False
         return True
+
 
 class Polygon(Shape):
     nb_sides = 3
@@ -83,6 +83,7 @@ class Polygon(Shape):
             return self.position == other.position and self.nb_sides == other.nb_sides \
             and self.scale == other.scale and self.rotation == other.rotation
         return False
+
 
 class Rectangle(Shape):
     position2 = None
@@ -197,3 +198,6 @@ def clear_list_shape():
     global listeShape
     listeShape = []
 
+def print_list_shape():
+    global listeShape
+    print(listeShape)
