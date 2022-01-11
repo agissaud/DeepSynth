@@ -69,27 +69,20 @@ from type_system import Arrow
 ##### Hyperparameters ######
 ############################
 
-max_program_depth = 4
-
-size_max = 10  # maximum number of elements in a list (input or output)
-nb_inputs_max = 1  # maximum number of inputs in an IO
-lexicon = list(range(30))  # all elements of a list must be from lexicon
-# only useful for VariableSizeEncoding
-encoding_output_dimension = 30  # fixing the dimension
-
-embedding_output_dimension = 10
-# only useful for RNNEmbedding
-number_layers_RNN = 1
-
-size_hidden = 64
+max_program_depth = 18
 
 logoDSL = dsl.DSL(logo.semantics, logo.primitive_types)
 type_request = logo.FIXED
 logo_cfg = logoDSL.DSL_to_CFG(type_request, max_program_depth=max_program_depth)
 logo_pcfg = logo_cfg.CFG_to_Uniform_PCFG()
 
-clear_list_shape()
-generator = logo.sampling()
-draw_all_shape_show()
+generator = logo_pcfg.sampling()
+
+for i in range(5):
+    clear_list_shape()
+    a = generator.__next__()
+    print(a)
+    a.eval(logoDSL, None, 0)
+    draw_all_shape_show()
 
 

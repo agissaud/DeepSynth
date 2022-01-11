@@ -70,7 +70,7 @@ class Polygon(Shape):
 
     def __init__(self, nb_sides, dimension):
         Shape.__init__(self)
-        self.scale = dimension
+        self.scale = dimension if dimension > 0 else 1
         self.nb_sides = nb_sides if nb_sides >= 3 else 3
         # RAISE ERRORS
 
