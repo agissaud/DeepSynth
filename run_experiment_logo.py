@@ -73,9 +73,16 @@ logo_pcfg = logo_cfg.CFG_to_Uniform_PCFG()
 
 generator = logo_pcfg.sampling(seed=5)
 
-for i in range(10):
+for i in range(5):
     clear_list_shape()
     a = generator.__next__()
-    print(a)
     a.eval_naive(logoDSL, None)
+    ls = get_list_shape()
+    while evaluate_superposition_img(ls) != 0 or len(ls) <= 2:
+        clear_list_shape()
+        a = generator.__next__()
+        a.eval_naive(logoDSL, None)
+        ls = get_list_shape()
+
+    print(a)
     draw_all_shape_show()

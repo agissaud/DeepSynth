@@ -224,6 +224,8 @@ class PCFG:
 
     def sample_program(self, S):
         i = self.vose_samplers[S].sample()
+        while i > len(self.list_derivations[S]):
+            i = self.vose_samplers[S].sample()
         P = self.list_derivations[S][i]
         args_P, w = self.rules[S][P]
         if len(args_P) == 0:
