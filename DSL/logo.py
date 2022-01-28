@@ -29,6 +29,7 @@ def _merge():
 def _concat(f1):
     return lambda f2: None
 
+
 def _rotate(shape):
     return lambda degree: shape.rotate(degree)
 

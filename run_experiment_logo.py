@@ -1,6 +1,7 @@
 from experiment_helper_logo import *
 from shape import *
-import numpy as np
+import dsl
+from DSL import logo
 
 def print_clown():
     eye1 = Polygon(5,3)
@@ -8,14 +9,11 @@ def print_clown():
     eye2 = Polygon(5,3)
     eye2.move(2,-2)
     s4 = Circle(4)
-    s5 = Circle(4)
     smile1 = Rectangle(10, 3)
-    smile1.move(-3, 2)
+    smile1.move(-1, 2)
     smile2 = Rectangle(10, 3)
-    smile2.move(0, 2)
+    smile2.move(1, 2)
 
-    merged = Merge(eye1, eye2)
-    merged.move(-1,-1)
     draw_all_shape_show()
 
 def test_Rectangle_superposed():
@@ -55,16 +53,10 @@ def test_color_next():
     c = (start_color)
     print(tuple(c))
     start_color = [1, 0, 0]
-    
-# print("hello from the other shape")
-# test_superposed_img_detection()
 
 ##############################################################
 
-import dsl
-from DSL import logo
-
-max_program_depth = 12
+max_program_depth = 15
 
 logoDSL = dsl.DSL(logo.semantics, logo.primitive_types)
 type_request = logo.FIXED
@@ -73,16 +65,21 @@ logo_pcfg = logo_cfg.CFG_to_Uniform_PCFG()
 
 generator = logo_pcfg.sampling(seed=5)
 
+selection_loop = False
+
 for i in range(5):
     clear_list_shape()
     a = generator.__next__()
     a.eval_naive(logoDSL, None)
     ls = get_list_shape()
-    while evaluate_superposition_img(ls) != 0 or len(ls) <= 2:
-        clear_list_shape()
-        a = generator.__next__()
-        a.eval_naive(logoDSL, None)
-        ls = get_list_shape()
+
+    if selection_loop:
+        while evaluate_superposition_img(ls) != 0 or len(ls) <= 2:
+            clear_list_shape()
+            a = generator.__next__()
+            a.eval_naive(logoDSL, None)
+            ls = get_list_shape()
 
     print(a)
+    print("\n")
     draw_all_shape_show()

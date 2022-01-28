@@ -1,39 +1,12 @@
-import torch
-from type_system import INT, STRING, Arrow, Type
-import type_system
-from Predictions.models import RulesPredictor, BigramsPredictor
-from pcfg import PCFG
 from typing import Callable, List, Tuple
 from dsl import DSL
 from program import Program
-import experiment_helper
 import shape as sh
 import numpy as np
 
 PENALITY_OUT_OF_BOUND = 5
 PENALITY_SUPERPOSITION = 5
 
-def make_program_checker_logo(dsl: DSL, examples) -> Callable[[Program, bool], bool]:
-    def checker(prog: Program, use_cached_evaluator: bool) -> bool:
-        if use_cached_evaluator:
-            for i, example in enumerate(examples):
-                input, output = example
-                prog.eval(dsl, input, i)
-                out = sh.draw_all_shape() # Récupérer l'image
-                if output != out:
-                    return False
-                sh.clear_list_shape()
-            return True
-        else:
-            for example in examples:
-                input, output = example
-                prog.eval(dsl, input, i) #à verif 
-                out = sh.draw_all_shape()
-                if output != out:
-                    return False
-                sh.clear_list_shape() #avant condition if
-            return True
-    return checker
 
 def loss_function_logo(listOfShape):
     valid = True
@@ -57,6 +30,7 @@ def loss_function_logo(listOfShape):
                 score += PENALITY_SUPERPOSITION
 
     return (valid, score)
+
 
 def evaluate_superposition_img(listOfShape):
     """
