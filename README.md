@@ -1,6 +1,7 @@
 # Logo DSL
 
-L'objectif de ce dépot est d'implémenter un nouveau Domain Specific Language (DSL) centré sur les logos au framework Deep Synth.
+Ce projet est fork du projet DeepSynth.
+L'objectif de ce dépot est d'implémenter un nouveau Domain Specific Language (DSL) centré sur les logos pour le framework Deep Synth.
 
 ## Liste des fichiers et descriptions :
 
@@ -34,7 +35,7 @@ Deux solutions envisageables :
 - Ajouter des nombres négatifs au DSL. Il faudra alors empêcher de créer des formes avec des paramètres négatifs (comme un polygone avec -5 cotés).
 - Changer la fonction move pour un déplacement par position absolue.
 
-Il n'est pas possible d'effectuer la rotation d'un rectangle car cela n'est pas permis par la bibliothèque utilisé.
+Il n'est pas possible d'effectuer la rotation d'un rectangle car cela n'est pas permis par la bibliothèque utilisée.
 
 # DeepSynth
 
